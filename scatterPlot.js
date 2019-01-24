@@ -46,11 +46,13 @@ let xScale = d3
     xAxis = d3
       .axisBottom()
       .scale(xScale)
-      .tickSizeOuter(0),
+      .tickSizeOuter(0)
+      .tickFormat(d3.format('.0s')),
     yAxis = d3
       .axisLeft()
       .scale(yScale)
-      .tickSizeOuter(0),
+      .tickSizeOuter(0)
+      .tickFormat(d3.format('.0s')),
     cScale = d3
       .scaleOrdinal()
       .domain(cRange)
@@ -132,12 +134,12 @@ r2d3.onRender(function(data, svg, width, height, options) {
     
   svg.select('.yAxis')
     .transition()
-    .call(yAxis)
+    .call(yAxis);
 
   let circle = svg
     .select('g.pointsPlot')
     .selectAll('circle')
-    .data(data)
+    .data(data);
   
   circle.exit().remove();
     
@@ -185,7 +187,7 @@ r2d3.onRender(function(data, svg, width, height, options) {
       .attr('cy', d => d.y)
       .attr('fill', d => d.clr)
       .transition()
-      .attr('r', 5)
+      .attr('r', 5);
     
   svg.select('g.legend')
     .selectAll('text')

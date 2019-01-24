@@ -7,7 +7,7 @@ library(dplyr)
 library(r2d3)
 library(DT)
 
-loadfonts(device = 'win')
+loadfonts()
 
 load(url("http://s3.amazonaws.com/assets.datacamp.com/production/course_4850/datasets/movies.Rdata"))
 
@@ -43,12 +43,7 @@ ui <- fluidPage(
         label = 'Y-axis:',
         choices = num_feat
       ),
-      selectInput(
-        inputId = 'xAxis',
-        label = 'X-axis:',
-        choices = num_feat,
-        selected = 'critics_score'
-      ),
+      uiOutput('axisX'),
       selectInput(
         inputId = 'color',
         label = 'Color by:',
@@ -93,6 +88,9 @@ server <- function(input, output) {
   })
 
   movies_d3 <- reactive({
+    validate(
+      need(input$xAxis != input$yAxis, '')
+    )
     movies_selected() %>%
       select(input$xAxis, input$yAxis, input$color) %>%
       rename_all(~c('x', 'y', 'clr'))
@@ -102,6 +100,15 @@ server <- function(input, output) {
     movies_selected() %>%
       select(title, input$xAxis, input$yAxis, input$color)
   })
+  
+  output$axisX <- renderUI(
+    selectInput(
+      inputId = 'xAxis',
+      label = 'X-axis:',
+      choices = num_feat[num_feat != input$yAxis],
+      selected = num_feat[2] %>% names()
+    )
+  )
   
   output$numOfMovies <- renderText({
     str_c('Number of movies ploted: ', nrow(movies_selected()))
