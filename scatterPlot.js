@@ -60,7 +60,7 @@ let xScale = d3
 
 let plot = svg
   .append('g')
-  .attr('transform', `translate(${margin.left}, ${margin.top})`)
+  .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
 plot.append('g')
   .attr('class', 'pointsPlot')
@@ -78,11 +78,11 @@ plot.append('g')
 plot.append('g')
   .call(xAxis)
   .attr('transform', `translate(0, ${plotHeight})`)
-  .attr('class', 'axis');
+  .attr('class', 'axis xAxis');
   
 plot.append('g')
   .call(yAxis)
-  .attr('class', 'axis');
+  .attr('class', 'axis yAxis');
   
 plot.append('g')
   .attr('class', 'legend')
@@ -127,6 +127,17 @@ r2d3.onRender(function(data, svg, width, height, options) {
       
   xScale.domain(xRange);
   yScale.domain(yRange);
+  
+  let xAxis = d3
+        .axisBottom()
+        .scale(xScale)
+        .tickSizeOuter(0)
+        .tickFormat(d3.format('.0s')),
+      yAxis = d3
+        .axisLeft()
+        .scale(yScale)
+        .tickSizeOuter(0)
+        .tickFormat(d3.format('.0s'));
 
   svg.select('.xAxis')
     .transition()

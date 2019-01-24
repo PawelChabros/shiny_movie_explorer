@@ -1,4 +1,3 @@
-library(extrafont)
 library(lubridate)
 library(stringr)
 library(ggplot2)
@@ -6,8 +5,6 @@ library(shiny)
 library(dplyr)
 library(r2d3)
 library(DT)
-
-loadfonts()
 
 load(url("http://s3.amazonaws.com/assets.datacamp.com/production/course_4850/datasets/movies.Rdata"))
 
@@ -106,7 +103,7 @@ server <- function(input, output) {
       inputId = 'xAxis',
       label = 'X-axis:',
       choices = num_feat[num_feat != input$yAxis],
-      selected = num_feat[2] %>% names()
+      selected = 'runtime'
     )
   )
   
