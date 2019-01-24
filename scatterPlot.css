@@ -1,0 +1,7 @@
+.axis path {
+  stroke: rgb(224, 224, 224);
+}
+
+.tick line {
+  stroke: rgb(204, 204, 204);
+}
