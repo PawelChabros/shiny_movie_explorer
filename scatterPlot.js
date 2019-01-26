@@ -168,55 +168,57 @@ r2d3.onRender(function(data, svg, width, height, options) {
     .transition()
     .attr('r', pointR);
   
-  cRange = [...new Set(data.map(d => d.clr))],
-  legHeight = cRange.length * 30;
+  if (!cRange.includes(data.map(d => d.clr)[0])) {
   
-  legend = createLegend();
-  
-  svg.select('g.legend')
-    .transition()
-    .attr('transform', `translate(${plotWidth + 10}, ${(plotHeight - legHeight)  / 2})`);
-  
-  svg.select('rect.legend')
-    .transition()
-    .attr('height', legHeight);
+    cRange = [...new Set(data.map(d => d.clr))],
+    legHeight = cRange.length * 30;
     
-  svg.select('g.legend')
-    .selectAll('circle')
-    .remove();
+    legend = createLegend();
     
-  let circleLeg = svg
-    .select('g.legend')
-    .selectAll('circle')
-    .data(legend);
-  
-  circleLeg.enter()
-    .append('circle')
-      .attr('r', 0)
-      .attr('opacity', 0.7)
-      .attr('cx', d => d.x)
-      .attr('cy', d => d.y)
-      .attr('fill', d => d.clr)
+    svg.select('g.legend')
       .transition()
-      .attr('r', 5);
+      .attr('transform', `translate(${plotWidth + 10}, ${(plotHeight - legHeight)  / 2})`);
     
-  svg.select('g.legend')
-    .selectAll('text')
-    .remove();
-
-  let textLeg = svg
-    .select('g.legend')
-    .selectAll('text')
-    .data(legend);
-    
-  textLeg.enter()
-    .append('text')
-      .attr('x', d => d.x + 10)
-      .attr('y', d => d.y)
-      .attr('alignment-baseline', 'middle')
-      .text(d => d.lab)
-      .attr('font-size', 0)
+    svg.select('rect.legend')
       .transition()
-      .attr('font-size', 10);
-
+      .attr('height', legHeight);
+      
+    svg.select('g.legend')
+      .selectAll('circle')
+      .remove();
+      
+    let circleLeg = svg
+      .select('g.legend')
+      .selectAll('circle')
+      .data(legend);
+    
+    circleLeg.enter()
+      .append('circle')
+        .attr('r', 0)
+        .attr('opacity', 0.7)
+        .attr('cx', d => d.x)
+        .attr('cy', d => d.y)
+        .attr('fill', d => d.clr)
+        .transition()
+        .attr('r', 5);
+      
+    svg.select('g.legend')
+      .selectAll('text')
+      .remove();
+  
+    let textLeg = svg
+      .select('g.legend')
+      .selectAll('text')
+      .data(legend);
+      
+    textLeg.enter()
+      .append('text')
+        .attr('x', d => d.x + 10)
+        .attr('y', d => d.y)
+        .attr('alignment-baseline', 'middle')
+        .text(d => d.lab)
+        .attr('font-size', 0)
+        .transition()
+        .attr('font-size', 10);
+  }
 });
