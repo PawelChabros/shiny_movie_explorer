@@ -47,12 +47,12 @@ let xScale = d3
       .axisBottom()
       .scale(xScale)
       .tickSizeOuter(0)
-      .tickFormat(d3.format('.0s')),
+      .tickFormat(d3.format(',.0f')),
     yAxis = d3
       .axisLeft()
       .scale(yScale)
       .tickSizeOuter(0)
-      .tickFormat(d3.format('.0s')),
+      .tickFormat(d3.format(',.0f')),
     cScale = d3
       .scaleOrdinal()
       .domain(cRange)
@@ -114,7 +114,7 @@ plot.select('.legend')
   .enter()
   .append('text')
     .attr('class', 'legend')
-    .attr('font-size', 10)
+    .attr('font-size', 9)
     .attr('x', d => d.x + 10)
     .attr('y', d => d.y)
     .attr('alignment-baseline', 'middle')
@@ -132,12 +132,12 @@ r2d3.onRender(function(data, svg, width, height, options) {
         .axisBottom()
         .scale(xScale)
         .tickSizeOuter(0)
-        .tickFormat(d3.format('.0s')),
+        .tickFormat(d3.format(',.0f')),
       yAxis = d3
         .axisLeft()
         .scale(yScale)
         .tickSizeOuter(0)
-        .tickFormat(d3.format('.0s'));
+        .tickFormat(d3.format(',.0f'));
 
   svg.select('.xAxis')
     .transition()
@@ -219,6 +219,6 @@ r2d3.onRender(function(data, svg, width, height, options) {
         .text(d => d.lab)
         .attr('font-size', 0)
         .transition()
-        .attr('font-size', 10);
+        .attr('font-size', 9);
   }
 });
